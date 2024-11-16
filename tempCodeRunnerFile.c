@@ -1,0 +1,1 @@
+histo[0] == NULL

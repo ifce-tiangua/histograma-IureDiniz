@@ -1,32 +1,45 @@
 #include <stdio.h>
 #include <stdlib.h>
 
-
-int main(){
-    int num_cate, aux;
-    scanf("%d", &num_cate);
-    if(num_cate != 0){
-        int *p = (int*) malloc(num_cate * sizeof(int*));
+void imprime_histograma(int tam, int *vetor, char **histo) {
     
-        for(int i = 0; i < num_cate; i++){
-            scanf("%d", &aux);
-         p[i] = aux;
-        }
+	for(int i = 0; i < tam; i++) {
+		printf("%d ", vetor[i]);
+		for(int j = 0; j < vetor[i]; j++) {
+			    printf("%c", histo[i][j]);
+		}
+		printf("\n");
+	}
+}
 
-        for(int i = 0; i < num_cate; i++){
-            printf("%d ", p[i]);
-            for(int j = 0; j < p[i]; j++){
-                printf("*");
-            }
-            printf("\n");
-        }
+int main() {
+	int tam;
+	scanf("%d", &tam);
 
-        free(p);
+	int vetor[tam];
+	for(int i = 0; i < tam; i++) {
+		scanf("%d", &vetor[i]);
+	}
 
-    }else{
-        printf("vazio");
-    }
-
+	char *histo[tam];
+	for(int i = 0; i < tam; i++) {
+		histo[i] = (char*) malloc(vetor[i] * sizeof(char));
+	}
     
-    return 0;
+	for(int i = 0; i < tam; i++) {
+		for(int j = 0; j < vetor[i]; j++) {
+			histo[i][j] = '*';
+		}
+	}
+
+	if(tam < 1)
+        printf("vazio\n");
+    else
+        imprime_histograma(tam, vetor, histo);
+	
+
+	for(int i = 0; i < tam; i++) {
+		free(histo[i]);
+	}
+	return 0;
 }
